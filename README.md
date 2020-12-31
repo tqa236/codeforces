@@ -1,1 +1,1 @@
-# codeforces
+# Solutions for Codeforces competitions
