@@ -18,7 +18,7 @@ def make_exercise(competition, name):
     folder_path = f"{path}/{folder_name}"
     if not os.path.exists(folder_path):
         print(f"Create {folder_path}.")
-        os.mkdir(folder_path)
+        os.makedirs(folder_path)
     else:
         print(f"Path {folder_path} already existed.")
 
@@ -36,7 +36,7 @@ def make_exercise(competition, name):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Parse arguments for new exercises.")
     parser.add_argument(
-        "-c", "--competition", type=str, default="Round696", help="Competition's name"
+        "-c", "--competition", type=str, default="Round701", help="Competition's name"
     )
     parser.add_argument("-n", "--name", type=str, help="Exercise's name.")
     args = parser.parse_args()
