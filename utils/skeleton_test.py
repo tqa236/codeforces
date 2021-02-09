@@ -1,11 +1,11 @@
 import unittest
 
-from {exercise_name} import {function}
+from {exercise_name} import main
 
 
 class Test(unittest.TestCase):
     def test_1(self):
-        self.assertEqual({function}(), True)
+        self.assertEqual(main(), True)
 
 
 
