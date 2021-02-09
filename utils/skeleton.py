@@ -9,9 +9,9 @@ def func(n):
 
 
 def main():
-    num_test = int(input())
+    num_test = int(parse_input())
     for _ in range(num_test):
-        n = [int(i) for i in input().split()]
+        n = [int(i) for i in parse_input().split()]
         print(func(n))
 
 
@@ -65,7 +65,7 @@ class IOWrapper(IOBase):
 
 
 sys.stdin, sys.stdout = IOWrapper(sys.stdin), IOWrapper(sys.stdout)
-input = lambda: sys.stdin.readline().rstrip("\r\n")
+parse_input = lambda: sys.stdin.readline().rstrip("\r\n")
 
 # endregion
 
