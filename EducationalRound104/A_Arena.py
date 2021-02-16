@@ -4,15 +4,16 @@ import sys
 from io import BytesIO, IOBase
 
 
-def func(n):
-    pass
+def func(heros):
+    return len(heros) - sum([1 for hero in heros if hero == min(heros)])
 
 
 def main():
     num_test = int(parse_input())
     for _ in range(num_test):
-        n = [int(i) for i in parse_input().split()]
-        print(func(n))
+        num_hero = int(parse_input())
+        heros = [int(i) for i in parse_input().split()]
+        print(func(heros))
 
 
 # region fastio

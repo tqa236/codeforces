@@ -4,15 +4,30 @@ import sys
 from io import BytesIO, IOBase
 
 
-def func(n):
-    pass
+def func(n, h):
+    if n % 2 == 0:
+        position = h % n
+        if position == 0:
+            return n
+        return position
+    cycle = n * (n - 1) // 2
+    h = h % cycle
+    if h == 0:
+        h = cycle
+    bumb = (h - 1) // ((n - 1) // 2)
+
+    position = (h + bumb) % n
+    # print(n, h, cycle, bumb, position)
+    if position == 0:
+        return n
+    return position
 
 
 def main():
     num_test = int(parse_input())
     for _ in range(num_test):
-        n = [int(i) for i in parse_input().split()]
-        print(func(n))
+        n, h = [int(i) for i in parse_input().split()]
+        print(func(n, h))
 
 
 # region fastio

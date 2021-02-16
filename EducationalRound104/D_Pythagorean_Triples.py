@@ -2,16 +2,20 @@
 import os
 import sys
 from io import BytesIO, IOBase
+import math
 
 
 def func(n):
-    pass
+    upper = int(math.floor(math.sqrt(2 * n - 1)))
+    if upper % 2 == 0:
+        upper -= 1
+    return (upper - 3) // 2 + 1
 
 
 def main():
     num_test = int(parse_input())
     for _ in range(num_test):
-        n = [int(i) for i in parse_input().split()]
+        n = int(parse_input())
         print(func(n))
 
 

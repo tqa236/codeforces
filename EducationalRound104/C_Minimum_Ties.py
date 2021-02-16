@@ -5,13 +5,32 @@ from io import BytesIO, IOBase
 
 
 def func(n):
-    pass
+    result = []
+    if n % 2 == 1:
+        win = (n - 1) // 2
+        for i in range(n):
+            for j in range(i + 1, n):
+                if j - i <= win:
+                    result.append(1)
+                else:
+                    result.append(-1)
+    else:
+        draw = n // 2
+        for i in range(n):
+            for j in range(i + 1, n):
+                if j - i < draw:
+                    result.append(1)
+                elif j - i == draw:
+                    result.append(0)
+                else:
+                    result.append(-1)
+    return " ".join([str(i) for i in result])
 
 
 def main():
     num_test = int(parse_input())
     for _ in range(num_test):
-        n = [int(i) for i in parse_input().split()]
+        n = int(parse_input())
         print(func(n))
 
 
