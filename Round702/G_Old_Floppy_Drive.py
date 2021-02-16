@@ -2,17 +2,58 @@
 import os
 import sys
 from io import BytesIO, IOBase
+import math
 
 
-def func(array):
-    pass
+def func(array, queries):
+    presum = []
+    for i in array:
+        if not presum:
+            presum.append(i)
+        else:
+            presum.append(presum[-1] + i)
+    inc = presum[-1]
+    caches = {}
+    time = []
+    length = len(array)
+    for query in queries:
+        if query in caches:
+            time.append(caches[query])
+        else:
+            min_time = float("inf")
+            for i, d in enumerate(presum):
+                if query >= d:
+                    min_time = i
+                    time.append(min_time)
+                break
+            if min_time == float("inf"):
+                if query in presum:
+                    min_time = presum.index(query)
+                elif inc == 0:
+                    min_time = -1
+                else:
+                    min_time = float("inf")
+                    for index, val in enumerate(presum):
+                        run = (query - val) / inc
+                        # print(run)
+                        if run >= 0:
+                            min_time = min(
+                                min_time, index + length * int(math.ceil(run))
+                            )
+                    if min_time == float("inf"):
+                        min_time = -1
+                caches[query] = min_time
+                time.append(min_time)
+    return " ".join([str(i) for i in time])
 
 
 def main():
     num_test = int(parse_input())
     for _ in range(num_test):
+        n, m = [int(i) for i in parse_input().split()]
         array = [int(i) for i in parse_input().split()]
-        print(func(array))
+        queries = [int(i) for i in parse_input().split()]
+        print(func(array, queries))
 
 
 # region fastio

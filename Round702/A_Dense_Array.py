@@ -2,15 +2,28 @@
 import os
 import sys
 from io import BytesIO, IOBase
+import math
 
 
 def func(array):
-    pass
+    count = 0
+    for i in range(len(array) - 1):
+        count += int(
+            max(
+                math.ceil(
+                    math.log2(max(array[i], array[i + 1]) / min(array[i], array[i + 1]))
+                )
+                - 1,
+                0,
+            )
+        )
+    return count
 
 
 def main():
     num_test = int(parse_input())
     for _ in range(num_test):
+        n = int(parse_input())
         array = [int(i) for i in parse_input().split()]
         print(func(array))
 

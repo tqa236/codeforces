@@ -2,15 +2,28 @@
 import os
 import sys
 from io import BytesIO, IOBase
+from collections import Counter
 
 
 def func(array):
-    pass
+    counter = Counter(array)
+    values = sorted(counter.values())
+    candidates = set(values)
+    sum_val = sum(values)
+    min_val = float("inf")
+    # print(counter, values, candidates)
+    for c in candidates:
+        index = values.index(c)
+        val = sum_val - (len(values) - index) * c
+        # print(index, c, val)
+        min_val = min(min_val, val)
+    return min_val
 
 
 def main():
     num_test = int(parse_input())
     for _ in range(num_test):
+        n = int(parse_input())
         array = [int(i) for i in parse_input().split()]
         print(func(array))
 

@@ -2,15 +2,33 @@
 import os
 import sys
 from io import BytesIO, IOBase
+from collections import Counter
 
 
 def func(array):
-    pass
+    array = [i % 3 for i in array]
+    counter = Counter(array)
+    balanced = len(array) // 3
+    op = 0
+    # print(counter, balanced)
+    for i in range(3):
+        if counter[i % 3] > balanced:
+            # print("haha", i % 3)
+            op += counter[i % 3] - balanced
+            next_op = counter[(i + 1) % 3] + op - balanced
+            # print(op, next_op)
+            if next_op < 0:
+                op += 2 * (-next_op)
+            else:
+                op += next_op
+            break
+    return op
 
 
 def main():
     num_test = int(parse_input())
     for _ in range(num_test):
+        n = int(parse_input())
         array = [int(i) for i in parse_input().split()]
         print(func(array))
 

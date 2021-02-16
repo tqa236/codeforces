@@ -5,14 +5,32 @@ from io import BytesIO, IOBase
 
 
 def func(array):
-    pass
+    indices = sorted(range(len(array)), key=lambda k: array[k])
+    sorted_array = [array[index] for index in indices]
+    presum = []
+    for val in sorted_array:
+        if not presum:
+            presum.append(val)
+        else:
+            presum.append(presum[-1] + val)
+    chances = []
+    for i in range(len(indices) - 1):
+        if presum[i] >= sorted_array[i + 1]:
+            chances.append(indices[i] + 1)
+        else:
+            chances = []
+    chances.append(indices[-1] + 1)
+    return chances
 
 
 def main():
     num_test = int(parse_input())
     for _ in range(num_test):
+        n = int(parse_input())
         array = [int(i) for i in parse_input().split()]
-        print(func(array))
+        chances = func(array)
+        print(len(chances))
+        print(" ".join([str(i) for i in sorted(chances)]))
 
 
 # region fastio

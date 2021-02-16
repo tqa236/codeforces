@@ -2,17 +2,23 @@
 import os
 import sys
 from io import BytesIO, IOBase
+import math
 
 
-def func(array):
-    pass
+def func(n):
+    upper_bound = int(math.ceil(n ** (1 / 3)))
+    for i in range(1, upper_bound):
+        value = (n - i ** 3) ** (1 / 3)
+        if abs(int(math.ceil(value)) - value) < 10 ** (-6):
+            return "YES"
+    return "NO"
 
 
 def main():
     num_test = int(parse_input())
     for _ in range(num_test):
-        array = [int(i) for i in parse_input().split()]
-        print(func(array))
+        n = int(parse_input())
+        print(func(n))
 
 
 # region fastio

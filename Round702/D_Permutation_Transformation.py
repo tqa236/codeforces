@@ -4,15 +4,28 @@ import sys
 from io import BytesIO, IOBase
 
 
-def func(array):
-    pass
+def func(array, start, end, depth, curr=0):
+    # print(array, start, end, depth, curr)
+    if not array:
+        return
+    max_val = max(array[start:end])
+    max_index = array.index(max_val)
+    depth[max_index] = curr
+    # print(max_index)
+    if max_index > start:
+        func(array, start, max_index, depth, curr + 1)
+    if max_index < end - 1:
+        func(array, max_index + 1, end, depth, curr + 1)
 
 
 def main():
     num_test = int(parse_input())
     for _ in range(num_test):
+        n = int(parse_input())
         array = [int(i) for i in parse_input().split()]
-        print(func(array))
+        depth = [0] * n
+        func(array, 0, n, depth)
+        print(" ".join([str(i) for i in depth]))
 
 
 # region fastio
