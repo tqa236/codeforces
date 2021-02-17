@@ -9,7 +9,7 @@ def func(n):
     upper_bound = int(math.ceil(n ** (1 / 3)))
     for i in range(1, upper_bound):
         value = (n - i ** 3) ** (1 / 3)
-        if abs(int(math.ceil(value)) - value) < 10 ** (-6):
+        if int(math.ceil(value)) ** 3 + i ** 3 == n:
             return "YES"
     return "NO"
 
