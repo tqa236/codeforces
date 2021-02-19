@@ -6,16 +6,30 @@ import math
 from collections import Counter
 
 
-def func(array):
-    pass
+def func(array_x, array_y):
+    array_x = sorted(array_x)
+    array_y = sorted(array_y)
+    n = len(array_x)
+    if n % 2 == 0:
+        x_factor = array_x[n // 2] - array_x[n // 2 - 1] + 1
+        y_factor = array_y[n // 2] - array_y[n // 2 - 1] + 1
+    else:
+        x_factor = 1
+        y_factor = 1
+    return x_factor * y_factor
 
 
 def main():
     num_test = int(parse_input())
     for _ in range(num_test):
         n = int(parse_input())
-        array = [int(i) for i in parse_input().split()]
-        print(func(array))
+        array_x = []
+        array_y = []
+        for i in range(n):
+            x, y = [int(i) for i in parse_input().split()]
+            array_x.append(x)
+            array_y.append(y)
+        print(func(array_x, array_y))
 
 
 # region fastio

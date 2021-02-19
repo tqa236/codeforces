@@ -7,7 +7,12 @@ from collections import Counter
 
 
 def func(array):
-    pass
+    count = 0
+    for i, h in enumerate(array):
+        count += h
+        if count < i * (i + 1) // 2:
+            return "NO"
+    return "YES"
 
 
 def main():

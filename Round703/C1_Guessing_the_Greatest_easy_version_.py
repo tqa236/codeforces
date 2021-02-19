@@ -4,18 +4,61 @@ import sys
 from io import BytesIO, IOBase
 import math
 from collections import Counter
+import sys
 
 
-def func(array):
-    pass
+def func(n):
+    start = 1
+    end = n
+    reused = False
+    while start < end:
+        if reused:
+            pass
+        else:
+            print(f"? {start} {end}")
+            sys.stdout.flush()
+            index = int(parse_input())
+        if end - start == 1:
+            if start == index:
+                print(f"! {end}")
+                return
+            else:
+                print(f"! {start}")
+                return
+        med = (start + end) // 2
+        if index <= med:
+            print(f"? {start} {med}")
+            sys.stdout.flush()
+            index2 = int(parse_input())
+            if index2 != index:
+                start = med + 1
+                reused = False
+            else:
+                end = med
+                reused = True
+        else:
+            med1 = med + 1
+            if med1 == end:
+                end = med
+                reused = False
+            else:
+                print(f"? {med1} {end}")
+                sys.stdout.flush()
+                index2 = int(parse_input())
+
+                if index2 != index:
+                    end = med1 - 1
+                    reused = False
+                else:
+                    start = med1
+                    reused = True
+    print(f"! {start}")
+    sys.stdout.flush()
 
 
 def main():
-    num_test = int(parse_input())
-    for _ in range(num_test):
-        n = int(parse_input())
-        array = [int(i) for i in parse_input().split()]
-        print(func(array))
+    n = int(parse_input())
+    func(n)
 
 
 # region fastio
