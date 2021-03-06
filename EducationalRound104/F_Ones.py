@@ -5,25 +5,26 @@ from io import BytesIO, IOBase
 
 
 def func(n):
-    # print(n)
-    if n == 0:
-        return 0
+    if n < 0:
+        raise Exception("Wrong")
     if n <= 6:
         return n
     length = len(str(n))
     big1 = int("1" * length)
     if n <= big1:
-        # print(big1, n)
         return length + func(big1 - n)
     big5 = int("5" * length)
     big6 = int("6" * length)
-    # print(big6 - n, n - big5)
-    if n <= big5 or (big6 + 1 - n >= n - big5):
+    if n <= big5:
         return (n // big1) * length + func(n % big1)
-    big11 = int("1" * (length + 1))
-    factor = (big11 - n) // big1
-    # print(big11, big1, factor, big1 - n % big1)
-    return length + 1 + factor * length + func(big11 - factor * big1 - n)
+    else:
+        big11 = int("1" * (length + 1))
+        if n >= big6:
+            factor = (big11 - n) // big1
+            return length + 1 + factor * length + func(big11 - factor * big1 - n)
+        return min(
+            5 * length + func(n - big5), 5 * length + 1 + func(big11 - 4 * big1 - n)
+        )
 
 
 def main():
