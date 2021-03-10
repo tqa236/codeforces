@@ -26,47 +26,23 @@ def func(array):
                 all_changes.append(counter)
                 counter = 1
                 curr_up = True
-    if counter > 0:
-        all_changes.append(counter)
-    if len(all_changes) == 1:
-        return 0
+    all_changes.append(counter)
     # print(all_changes)
     max_change = max(all_changes)
     max_change_indices = [i for i, val in enumerate(all_changes) if val == max_change]
-    # print(max_change_indices)
-    # print("Here")
-    if len(max_change_indices) > 4:
+    if len(max_change_indices) >= 3:
         return 0
-    if len(max_change_indices) == 4:
-        # print(up_first)
-        if not up_first:
-            if max_change_indices[3] - max_change_indices[0] == 3:
-                if max_change % 2 == 1:
-                    return 0
-                else:
-                    return 1
-
-            return 1
-        return 0
-    if len(max_change_indices) == 3:
-        if up_first:
-            return 1
-        return 1 if max_change_indices[2] - max_change_indices[0] == 2 else 0
     if len(max_change_indices) == 2:
-        return 1 if up_first else 0
-    max_change_index = max_change_indices[0]
-    if max_change_index % 2 == 0:
-        min_val = all_changes[max_change_index + 1]
-    else:
-        min_val = all_changes[max_change_index - 1]
-    max_val = max_change
-    # print(min_val, max_val)
-    if max_val % 2 == 0:
-        max_val -= 1
-    # print(min_val, max_val)
-    if min_val + 1 >= max_val:
+        if up_first and max_change_indices[0] % 2 == 1:
+            return 0
+        if not up_first and max_change_indices[0] % 2 == 0:
+            return 0
+        if max_change_indices[1] - max_change_indices[0] != 1:
+            return 0
+        if max_change % 2 == 0:
+            return 1
         return 0
-    return 1
+    return 0
 
 
 def main():
