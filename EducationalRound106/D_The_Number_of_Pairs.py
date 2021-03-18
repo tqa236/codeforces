@@ -5,39 +5,39 @@ from io import BytesIO, IOBase
 import math
 from collections import Counter
 
-PRIMES = set([3])
+
+# def primes(n):
+#     r = [False, True] * (n // 2) + [True]
+#     r[1], r[2] = False, True
+#     for i in range(3, int(1 + n ** 0.5), 2):
+#         if r[i]:
+#             r[i * i :: 2 * i] = [False] * ((n + 2 * i - 1 - i * i) // (2 * i))
+#     return [i for i in range(len(r) - 1) if r[i]]
 
 
-def primeFactors(n):
-    if n == 1:
-        return Counter({})
-    exponents = {}
-    count = 0
-    while n % 2 == 0:
-        count += 1
-        n = n // 2
-    exponents[2] = count
-    for i in PRIMES:
-        count = 0
-        while n % i == 0:
-            count += 1
-            n = n // i
-        exponents[i] = count
-    for i in range(3, int(math.sqrt(n)) + 1, 2):
-        if i in exponents:
-            continue
-        count = 0
-        while n % i == 0:
-            count += 1
-            n = n // i
-        exponents[i] = count
-        if count > 0:
-            PRIMES.add(i)
-    if n > 2:
-        exponents[n] = 1
-        PRIMES.add(n)
-    # print(PRIMES)
-    return Counter(exponents)
+# PRIMES = primes(10 ** 4)
+ALL_DIVS = {}
+PRIME_NUMS = [0] * (2 * 10 ** 7 + 1)
+for i in range(2, 2 * 10 ** 7 + 1):
+    if PRIME_NUMS[i] != 0:
+        continue
+    for j in range(i, 2 * 10 ** 7 + 1, i):
+        PRIME_NUMS[j] += 1
+
+
+# def primeFactors(n):
+#     if n == 1:
+#         return set()
+#     factors = set()
+#     for i in PRIMES:
+#         while n % i == 0:
+#             n = n // i
+#             factors.add(i)
+#         if n < i:
+#             break
+#     if n > 2:
+#         factors.add(n)
+#     return factors
 
 
 def printDivisors(n):
@@ -54,35 +54,31 @@ def printDivisors(n):
     return all_div
 
 
-def countPairs(k):
-    factors = len([factor for factor, value in primeFactors(k).items() if value > 0])
-    return 2 ** factors
-
-
 def func(array):
-    caches = {}
     count = 0
     c, d, x = array
     g = math.gcd(c, d)
     if x % g != 0:
         return 0
     c, d, x = c // g, d // g, x // g
-    all_div = printDivisors(x)
+    if x not in ALL_DIVS:
+        ALL_DIVS[x] = printDivisors(x)
+    all_div = ALL_DIVS[x]
     for y0 in all_div:
         tmp = y0 + d
         if tmp % c == 0:
             k = tmp // c
-            if k not in caches:
-                caches[k] = countPairs(k)
-            count += caches[k]
+            count += 2 ** PRIME_NUMS[k]
     return count
 
 
 def main():
     num_test = int(parse_input())
+    result = []
     for _ in range(num_test):
         array = [int(i) for i in parse_input().split()]
-        print(func(array))
+        result.append(func(array))
+    print("\n".join(map(str, result)))
 
 
 # region fastio
