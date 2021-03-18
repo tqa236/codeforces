@@ -36,10 +36,12 @@ def func(n, array):
 
 def main():
     num_test = int(parse_input())
+    result = []
     for _ in range(num_test):
         n = int(parse_input())
         array = [int(i) for i in parse_input().split()]
-        print(func(n, array))
+        result.append(func(n, array))
+    print("\n".join(map(str, result)))
 
 
 # region fastio
