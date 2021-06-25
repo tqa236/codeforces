@@ -10,8 +10,16 @@ from collections import Counter
 # ic.disable()
 
 
-def func(array):
-    pass
+def func(n, array):
+    array = sorted(array)
+    weights = array[-1]
+    old = 0
+    curr = 0
+    for i, val in enumerate(array):
+        curr += val
+        weights -= (i + 1) * val - curr
+        # print(i, curr, weights)
+    return weights
 
 
 def main():
@@ -20,7 +28,7 @@ def main():
     for _ in range(num_test):
         n = int(parse_input())
         array = [int(i) for i in parse_input().split()]
-        result.append(func(array))
+        result.append(func(n, array))
     print("\n".join(map(str, result)))
 
 

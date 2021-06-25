@@ -10,8 +10,16 @@ from collections import Counter
 # ic.disable()
 
 
-def func(array):
-    pass
+def func(n):
+    order = list(range(1, n + 1))
+    # print(order)
+    for i in range(n // 2):
+        order[2 * i], order[2 * i + 1] = order[2 * i + 1], order[2 * i]
+        # print(order)
+    if n % 2 == 1:
+        order[-1], order[-2] = order[-2], order[-1]
+    # print(order)
+    return " ".join(map(str, order))
 
 
 def main():
@@ -19,8 +27,7 @@ def main():
     result = []
     for _ in range(num_test):
         n = int(parse_input())
-        array = [int(i) for i in parse_input().split()]
-        result.append(func(array))
+        result.append(func(n))
     print("\n".join(map(str, result)))
 
 

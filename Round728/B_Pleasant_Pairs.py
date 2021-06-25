@@ -10,8 +10,15 @@ from collections import Counter
 # ic.disable()
 
 
-def func(array):
-    pass
+def func(n, array):
+    count = 0
+    for i in range(n):
+        mul = 1
+        while array[i] * mul < 2 * n:
+            if i < array[i] * mul - 2 - i < n and array[array[i] * mul - 2 - i] == mul:
+                count += 1
+            mul += 1
+    return count
 
 
 def main():
@@ -20,7 +27,7 @@ def main():
     for _ in range(num_test):
         n = int(parse_input())
         array = [int(i) for i in parse_input().split()]
-        result.append(func(array))
+        result.append(func(n, array))
     print("\n".join(map(str, result)))
 
 

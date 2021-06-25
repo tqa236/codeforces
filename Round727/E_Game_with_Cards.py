@@ -10,18 +10,24 @@ from collections import Counter
 # ic.disable()
 
 
-def func(array):
+def func(n, m, ks, left, right):
     pass
 
 
 def main():
-    num_test = int(parse_input())
+    n, m = [int(i) for i in parse_input().split()]
     result = []
-    for _ in range(num_test):
-        n = int(parse_input())
+    ks = []
+    left = []
+    right = []
+    for _ in range(n):
+        k = int(parse_input())
+        ks.append(k)
         array = [int(i) for i in parse_input().split()]
-        result.append(func(array))
-    print("\n".join(map(str, result)))
+        left.append(array)
+        array = [int(i) for i in parse_input().split()]
+        right.append(array)
+    func(n, m, ks, left, right)
 
 
 # region fastio
